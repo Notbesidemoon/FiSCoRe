@@ -1,0 +1,14 @@
+# Versions captured from the local Conda environment `grpo` (Python 3.11.11).
+accelerate==1.4.0
+datasets==4.8.5
+deepspeed==0.15.4
+flash-attn==2.7.4.post1
+huggingface-hub==0.36.2
+numpy==2.2.6
+peft==0.15.1
+scipy==1.15.2
+torch==2.10.0
+tqdm==4.67.1
+transformers==4.57.6
+trl==1.4.0.dev0
+vllm==0.18.0

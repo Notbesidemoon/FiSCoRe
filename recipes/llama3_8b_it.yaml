@@ -1,0 +1,71 @@
+# Model arguments
+model_name_or_path: meta-llama/Meta-Llama-3-8B-Instruct
+model_revision: main
+torch_dtype: bfloat16
+attn_implementation: flash_attention_2   # eager
+
+# Data training arguments
+dataset_name: data/pararel_train.json
+
+
+
+
+system_prompt: |
+  You are a helpful and truthful AI Assistant. Given a question, you should provide responses
+  that include answer and confidence. You first answer the question as briefly as possible en-
+  closed by <answer> and </answer>, and then provide your confidence in sure or unsure
+  about the answer, enclosed by <confidence> and </confidence>. Respond in the
+  following format:
+  <answer> ... </answer>
+  <confidence> sure or unsure </confidence>
+
+# GRPO trainer config
+bf16: true
+use_vllm: true
+vllm_device: auto
+vllm_enforce_eager: true
+vllm_gpu_memory_utilization: 0.7
+vllm_max_model_len: 4608
+do_eval: false
+gradient_accumulation_steps: 4
+gradient_checkpointing: true
+gradient_checkpointing_kwargs:
+  use_reentrant: false
+hub_model_id: hub_model_id
+hub_strategy: every_save
+callbacks: []
+learning_rate: 3.0e-06
+log_completions: false
+log_level: info
+logging_first_step: true
+logging_steps: 1
+logging_strategy: steps
+lr_scheduler_type: cosine_with_min_lr
+lr_scheduler_kwargs:
+  min_lr_rate: 0.1
+max_prompt_length: 128
+max_completion_length: 64
+# max_steps: 500
+num_generations: 10
+num_train_epochs: 1
+output_dir: outputs/llama3-8b-it-fiscore
+overwrite_output_dir: true
+per_device_eval_batch_size: 10
+per_device_train_batch_size: 10
+push_to_hub: false
+report_to: []
+reward_funcs:
+- confidence
+- accuracy
+- tag_count
+- format
+reward_weights:
+- 1.0
+- 4.0
+- 1.0
+- 1.0
+save_strategy: "steps"
+save_steps: 300
+seed: 42
+temperature: 1.0
+warmup_ratio: 0.05
