@@ -60,7 +60,7 @@ def get_nli_model():
 def are_equivalent(text1, text2, strict_entailment=True, example=None):
     """check if two texts are semantically equivalent"""
     model = get_nli_model()
-    
+
     implication_1 = model.check_implication(text1, text2, example=example)
     implication_2 = model.check_implication(text2, text1, example=example)  # pylint: disable=arguments-out-of-order
     assert (implication_1 in [0, 1, 2]) and (implication_2 in [0, 1, 2])
@@ -98,16 +98,16 @@ def get_semantic_ids(strings_list, strict_entailment=True, example=None):
 
 def extract_content(text, tag_type="answer"):
     """Extract content based on tag type and model type.
-    
+
     Args:
         text (str): The text to extract content from
         tag_type (str): Type of content to extract ("answer" or "confidence")
         model_type (str): Type of model format ("gemma" or "default")
-    
+
     Returns:
         str: Extracted content
     """
-    
+
     if tag_type == "answer":
         pattern = r"<answer>(.*?)</answer>"
     else:  # confidence
@@ -142,7 +142,7 @@ def confidence_reward(completions, question, **kwargs):
             rewards.append(0.0)
             continue
         p_confidence_word = confidence_word.strip().lower()
-        if semantic_set_count < (len(contents) / 2): 
+        if semantic_set_count < (len(contents) / 2):
             if "unsure" == p_confidence_word:
                 rewards.append(1.0)
             else:
@@ -153,7 +153,7 @@ def confidence_reward(completions, question, **kwargs):
             else:
                 rewards.append(0.0)
     return rewards
-    
+
 
 # def confidence_reward(completions, question, **kwargs):
 #     """calculate the certainty reward function based on the semantic groups"""
@@ -163,7 +163,7 @@ def confidence_reward(completions, question, **kwargs):
 #     semantic_set_ids, semantic_set_counts = get_semantic_ids(qas, strict_entailment=True)
 #     # print("semantic_set_ids", semantic_set_ids)
 #     print("semantic_set_counts", semantic_set_counts)
-    
+
 #     confidence_words = [extract_content(content, "confidence") for content in contents]
 #     rewards = []
 #     for i, (confidence_word, semantic_set_count) in enumerate(zip(confidence_words, semantic_set_counts)):
@@ -231,7 +231,7 @@ def tag_count_reward(completions, **kwargs) -> list[float]:
             count += 0.125
         if text.count("</confidence>") == 1:
             count += 0.125
-        
+
         return count * 2.0
 
     contents = [completion[0]["content"] for completion in completions]

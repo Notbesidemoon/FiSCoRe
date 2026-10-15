@@ -54,7 +54,7 @@ sampling_params = SamplingParams(
 def extract_content(text, tag_type="answer"):
     if tag_type == "answer":
         out_text = text.split('</answer>')[0]
-        
+
         return out_text.replace('<answer>', '').strip()
     else:  # confidence
         pattern = r"<confidence>(.*?)</confidence>"
@@ -109,7 +109,7 @@ def evaluate(data_name, output_dir):
 
     answerable_indices = [i for i in range(len(dataset))]
     total_sample = len(answerable_indices)
-    
+
     Q, I, C, Refusal, IK_IK, IDK_IDK, IDK_IK, IK_IDK = 0, 0, 0, 0, 0, 0, 0, 0
     for i in tqdm(answerable_indices):
         question = dataset[i]["question"]
@@ -138,7 +138,7 @@ def evaluate(data_name, output_dir):
         Refusal += unsure
         Q += (1-unsure)
         un_c_match = 1 if (unsure == 1 and correct == 0) or (unsure == 0 and correct == 1) else 0
-        
+
         CC, II = 0, 0
         if correct == 1 and unsure == 0:
             C += 1

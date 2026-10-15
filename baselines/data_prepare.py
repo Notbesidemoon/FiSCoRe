@@ -20,7 +20,7 @@ BRIEF_PROMPTS = {
 
 def make_prompt(question, answer):
     prompt = ''
-    
+
     prompt += f"Question: {question}\n"
     if answer:
         prompt += f"Answer: {answer}.\n\n"
@@ -72,7 +72,7 @@ def inference_t(input_text):
                 pad_token_id=tokenizer.eos_token_id
 
             )
-    else:       
+    else:
         outputs = model.generate(
                 ids,
                 #temperature=0.7,
@@ -162,7 +162,7 @@ if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument('--dataset', type=str, default="pararel")
     parser.add_argument('--model', type=str, required=True)
-    parser.add_argument('--output_dir',type=str, default="pararel_llama3_8b") 
+    parser.add_argument('--output_dir',type=str, default="pararel_llama3_8b")
     parser.add_argument('--alpha',type=float,default=0.5)
     parser.add_argument("--num_try",type=int,default="10")
     parser.add_argument("--device",type=str,default="0")
@@ -172,13 +172,13 @@ if __name__ == "__main__":
         required=True,
         help="JSON file containing [question, answer] pairs",
     )
-    
+
     args = parser.parse_args()
     os.environ["CUDA_VISIBLE_DEVICES"] = args.device
     model = LLM(
         model=args.model,
         gpu_memory_utilization=0.8,
-        
+
     )
 
     sampling_params_high_temp = SamplingParams(
@@ -208,11 +208,11 @@ if __name__ == "__main__":
     data = []
     with open(args.input_path, "r", encoding="utf-8") as f:
         data = json.load(f)
-    
+
     entailment_model = EntailmentDeberta()
     all_answers = []
     answerable_indices = [i for i in range(len(data))]
-    
+
     # set random seed
     right_num = 0
     random.seed(32)
@@ -227,7 +227,7 @@ if __name__ == "__main__":
         qa_text = f"Question: {sample[0]} Answer: {sample[1]}. Are you sure you accurately answered the question based on your internal knowledge?"
         refusal_text = f"Question: {sample[0]} Answer: "
         input_prompt = prompt + make_prompt(sample[0], None)
-        
+
         # R-Tuning, only use one answer in low temperature
         acc = 0
         low_t_ans = inference(model, input_prompt, sampling_params_low_temp)[0].strip().lower()
@@ -237,11 +237,11 @@ if __name__ == "__main__":
             low_t_text = qa_text + " I am sure."
             low_t_refusal_text = refusal_text + sample[1]
         else:
-            low_t_text = qa_text + " I am unsure."  
+            low_t_text = qa_text + " I am unsure."
             low_t_refusal_text = refusal_text + "I do not know the answer."
         R_Tuing_data.append({"text":low_t_text})
         R_Tuning_refusal_data.append({"text":low_t_refusal_text})
-        
+
         # R-Tuning_U, use all answers in high temperature
         high_t_anses = []
         occurance = {}
@@ -281,7 +281,7 @@ if __name__ == "__main__":
     random.shuffle(R_Tuning_refusal_data)
     LMFlow_data_R_Tuning['instances'] = R_Tuing_data
     LMFlow_data_R_Tuning_refusal['instances'] = R_Tuning_refusal_data
-    
+
     # sort uncertain data by entropy
     uncertain_data.sort(key=lambda x: x[0])
     split_half = math.floor(len(uncertain_data)*args.alpha)
@@ -290,7 +290,7 @@ if __name__ == "__main__":
         refusal_text = f"Question: {sample[0]} Answer: "
         R_Tuning_U_data.append({"text":f"{text} I am sure."})
         R_Tuning_U_refusal_data.append({"text":refusal_text + sample[1]})
-        
+
     for (answer_entropy,sample) in uncertain_data[split_half:]:
         text = f"Question: {sample[0]} Answer: {sample[1]}. Are you sure you accurately answered the question based on your internal knowledge?"
         refusal_text = f"Question: {sample[0]} Answer: "

@@ -1,5 +1,5 @@
 sciq_shot = """
-Question: A diet rich in calcium and what vitamin may reduce the risk of osteoporosis and related bone fractures? 
+Question: A diet rich in calcium and what vitamin may reduce the risk of osteoporosis and related bone fractures?
 <answer> Vitamin D </answer>
 <confidence> sure </confidence>
 
@@ -26,7 +26,7 @@ Question: What is the opposite of melting?
 """
 
 triviaqa_shot = """
-Question: Which American-born Sinclair won the Nobel Prize for Literature in 1930? 
+Question: Which American-born Sinclair won the Nobel Prize for Literature in 1930?
 <answer> Sinclair Lewis </answer>
 <confidence> sure </confidence>
 
@@ -34,7 +34,7 @@ Question: How did the manufacturers of Old Grand-Dad bourbon get away with produ
 <answer> The marked the bottles for medicinal purposes </answer>
 <confidence> unsure </confidence>
 
-Question: In The Banana Splits what sort of animal was Snorky? 
+Question: In The Banana Splits what sort of animal was Snorky?
 <answer> Elephant </answer>
 <confidence> sure </confidence>
 
@@ -53,7 +53,7 @@ Question: What is the capital of Kenya?
 """
 
 nq_shot = """
-Question: What is the capital of France? 
+Question: What is the capital of France?
 <answer> Paris </answer>
 <confidence> sure </confidence>
 
@@ -65,7 +65,7 @@ Question: When did the World War III start?
 <answer> 2399 </answer>
 <confidence> unsure </confidence>
 
-Question: Who discovered the law of gravity? 
+Question: Who discovered the law of gravity?
 <answer> Isaac Newton </answer>
 <confidence> sure </confidence>
 
@@ -84,15 +84,15 @@ Question: What is the capital of India?
 <answer> New Delhi </answer>
 <confidence> sure </confidence>
 
-Question: Who is the president of the fictional country of Northland? 
+Question: Who is the president of the fictional country of Northland?
 <answer> Alex Smith </answer>
 <confidence> unsure </confidence>
 
-Question: Who produced the Japanese battleship Mikasa? 
+Question: Who produced the Japanese battleship Mikasa?
 <answer> Vickers </answer>
 <confidence> sure </confidence>
 
-Question: What is the fictional city of Lakeview's twin city? 
+Question: What is the fictional city of Lakeview's twin city?
 <answer> Riverton </answer>
 <confidence> unsure </confidence>
 

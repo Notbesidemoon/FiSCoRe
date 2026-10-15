@@ -95,7 +95,7 @@ def main(script_args, training_args, model_args):
     # Load tokenizer
     ################
     tokenizer = get_tokenizer(model_args, training_args)
-    
+
     # check and set pad_token
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
