@@ -66,10 +66,9 @@ pip install -r requirements.txt
 ```
 
 `flash-attn`, DeepSpeed, and vLLM require a compatible CUDA toolchain. The
-recorded environment uses CUDA-enabled PyTorch. The development version
-`trl==1.4.0.dev0` must be available from the same package source; if it is not
-published on your package index, install the corresponding current TRL source
-build while retaining GRPO and vLLM support.
+recorded environment uses CUDA-enabled PyTorch. Its local TRL build reports
+`1.4.0.dev0`; `requirements.txt` maps it to the installable `trl==1.4.0`
+release.
 
 Weights & Biases is optional and disabled in the public recipes. It is not
 included in `requirements.txt` because the local environment contained an

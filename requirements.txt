@@ -10,5 +10,5 @@ scipy==1.15.2
 torch==2.10.0
 tqdm==4.67.1
 transformers==4.57.6
-trl==1.4.0.dev0
+trl==1.4.0
 vllm==0.18.0
